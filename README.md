@@ -3,9 +3,9 @@
 > Aryan Garg (B19153)  
 > Anukool Dwivedi (B19071)  
 > Rajat Kaushik (B19105)  
-> Samarth Reddy  
+> Samarth Reddy (B19109)  
 > Divyansh Vinayak (B19080)  
-> Rahul Kumar  
-> Kailash Kumar  
+> Rahul Kumar (B19104)  
+> Kailash Kumar (B19087)  
 
 **Multiplayer and chat functionality was added in the project using tools learnt in CS-308 LAP (Fall'21)**
