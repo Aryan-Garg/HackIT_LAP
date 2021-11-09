@@ -55,8 +55,8 @@ serviceForPort['6112/tcp']='dtspc';
 serviceForPort['8080/tcp']='apache';
 var hpPorts=['21/tcp','25/tcp','80/tcp','111/tcp','135/tcp'];
 var normPorts=['22/tcp','53/tcp','110/tcp','139/tcp','443/tcp','445/tcp','3306/tcp','5800/tcp','5900/tcp','6112/tcp','8080/tcp'];
-var normOpSys = ['OpenBSD', 'Linux','Mac OS X','Windows 8'];
-var hpOpSys=['Windows Server 2003','Windows XP','HP-UX 11i','Solaris'];
+var normOpSys = ['OpenBSD', 'Linux','Mac OS X','Windows 8']; // we can merge this both
+var hpOpSys=['Windows Server 2003','Windows XP','HP-UX 11i','Solaris']; // we can merge this both
 
 var res = [];
 

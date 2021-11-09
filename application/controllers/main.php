@@ -217,22 +217,23 @@ class Main extends CI_Controller {
 	public function testing(){
 		if ($this->session->userdata('is_logged_in'))
 		{
-		if($this->session->userdata('role')=='hacker')
-		{
-			$temp=array('score' => 0,'last_id' => 0);
-			$this->session->set_userdata($temp);
-			if($this->session->userdata('id') && !$this->session->userdata('gameplay_id')){
-				$this->load->model('model_user');
-				$data = array('user_id'=> $this->session->userdata('id'),'score'=> 0);
-				$this->model_user->new_game($data);
-			}
-
-			$this->load->view('instruction_ques');
-		} else{
-			redirect('main/restricted');
-		}
-	}	else redirect('main/restricted');
-}
+			if ($this->session->userdata('role')=='hacker')
+			{
+				$temp=array('score' => 0,'last_id' => 0);
+				$this->session->set_userdata($temp);
+				if	($this->session->userdata('id') && !$this->session->userdata('gameplay_id')){
+					$this->load->model('model_user');
+					$data = array('user_id'=> $this->session->userdata('id'),'score'=> 0);
+					$this->model_user->new_game($data);
+				}
+				$this->load->view('instruction_ques');
+				} 
+				else {
+					redirect('main/restricted');
+				}
+			}	
+			else redirect('main/restricted');
+	}
 
 public function input_command()
 {
@@ -246,15 +247,15 @@ public function input_command()
 		$row = $query->row_array();
 	}
 	$gn=$this->session->userdata('game_number');
-	$gametype='Non-RDS(Linear) Topology';
+	$gametype='RDS Topology';
 	date_default_timezone_set("Asia/Kolkata");
 
-	$data1=array('userID'=>$row['id'],
-							'username'=>$this->session->userdata('username'),
-							'input_command'=>$this->input->post('input'),
-							'output'=>$this->input->post('output'),
-							'gamenumber'=>$gn,
-							'gametype'=>$gametype);
+	$data1=array(	'userID'=>$row['id'],
+					'username'=>$this->session->userdata('username'),
+					'input_command'=>$this->input->post('input'),
+					'output'=>$this->input->post('output'),
+					'gamenumber'=>$gn,
+					'gametype'=>$gametype);
 
 		$this->model_user->log_command($data1);
 
@@ -274,7 +275,7 @@ public function input_exploit()
 	$r=$this->input->post('r');
 
 	$gn=$this->session->userdata('game_number');
-	$gametype='Non-RDS(Linear) Topology';
+	$gametype='RDS Topology';
 	$data1=array('userID'=>$row['id'],
 							'Role'=>'Hacker',
 							'username'=>$this->session->userdata('username'),
@@ -328,7 +329,8 @@ public function input_exploit()
 				echo "<br/>You played as a hacker !<br/>";
 				echo '<br/>Total Score : '.$tscore."<br/><br/>";
 				echo "<br/>Please complete this survey to get your rewards! <br/>";
-				echo ' <h1><a href="https://cmu.ca1.qualtrics.com/jfe/form/SV_881ryzhgO0ILeAJ?user_id='.$user_name['username'].'" target="_blank"> Open Survey </a> </h1><br/><br/>';
+				echo '<h1><a href="https://forms.gle/c8iV1ASaDRx8T1HA8" target="_blank"> Open Survey </a> </h1><br/><br/>';
+				//echo ' <h1><a href="https://cmu.ca1.qualtrics.com/jfe/form/SV_881ryzhgO0ILeAJ?user_id='.$user_name['username'].'" target="_blank"> Open Survey </a></h1> <br/><br/>';
 				//echo " <a href='https://forms.gle/UfjUwh8XpYLLzNta7'> Open Survey </a> <br/><br/>";
 				//echo "<br>Winner of Game : ".$win."<br>";
 			}
@@ -337,8 +339,8 @@ public function input_exploit()
 				$this->load->view('score_2');
 			else
 				$this->load->view('score_1');
-	}
-	else redirect('main/restricted');
+		}
+		else redirect('main/restricted');
 	}
 
 
@@ -384,14 +386,14 @@ public function input_exploit()
 				$score = -100;
 				$win = "hacker";
 				//$str = "You have succesfully copied the file to your system";
-				$str = 'You have been caught while attempting to steal the information. <br> Your Current Score is: -100.';
+				$str = 'You have been caught while attempting to steal the information. <br> Your have lost 100 points.';
 			}
 			else
 			{
-				$score = 300;
+				$score = 100;
 				$win = "defender";
 				//$str = "You have succesfully copied the file to your system";
-				$str = 'You have successfully hacked into the system. <br> Your Current Score is: 100.';
+				$str = 'You have successfully hacked into the system. <br> Your have gained 100 new points.';
 			}
 
 			$this->load->model('model_user');
@@ -408,7 +410,7 @@ public function input_exploit()
 			//date("Y-m-d H:i:s")
 			//echo "<br>THIS IS LID:".$lid;
 			echo "<br>".$str;
-			echo '<br>Use "exit" command to view your score and exit the game';
+			//echo '<br>Use "exit" command to view your score and exit the game';
 
 		}
 	}

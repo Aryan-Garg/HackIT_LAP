@@ -50,8 +50,8 @@ $active_record = TRUE;
 
 
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'acs_vaibhav';
-$db['default']['password'] = 'acslab';
+$db['default']['username'] = 'root'; //acs_vaibhav
+$db['default']['password'] = ''; //acslab
 $db['default']['database'] = 'acs_hackit';
 $db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = '';

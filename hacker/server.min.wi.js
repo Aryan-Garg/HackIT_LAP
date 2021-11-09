@@ -24,6 +24,8 @@ $(document).ready(function () {
         }
         return false;
     }
+
+
     function markElem(elem)
 	{
         for(var k in checkSys){
@@ -56,7 +58,7 @@ $(document).ready(function () {
                 honeySys = sysData[gn]["honeypots"];
 
 				if((gn==1)){
-                    console.log("Non-RDS(Linear) Topology");
+                    console.log("RDS Topology");
                     }
 				// else{
                 //         honeySys=[];
@@ -73,39 +75,30 @@ $(document).ready(function () {
         var dirname = tokens[1];
         var str = "";
         if (tokens.length == 1 || dirname == '') {
-            str = 'Unavailable format.<br>Example: nmap [System]';
+            str = 'Incorrect syntax found.<br>Example: nmap System#';
         }
         else if (tokens.length == 3 && tokens[1] == "-sL" && tokens[2]=='all')
         {
-            var sys_list = checkSys.slice().map(Number);
-            sys_list.sort(function(a, b){return a-b});
-            var cnt = 0;
-            str = "<br>Systems you can hack are : "
-            for(var k in sys_list){
-                if(sys_list[k]!=-1)
-                {
-                    cnt++;
-                    str = str+" System"+sys_list[k]+",";
-                }
-            }
-            if(cnt==0) str = "No further systems.<br>"
+            var str = "";
+            var cursys = Number(sessionStorage['curr_sys']);
+            str = 'Systems adjacent to the current system are : ' + g.printSystems(cursys) + "<br><br>";
+            return str;
         }
-        else {
+        else{
             var token = dirname.substring(0,6);
             var nmapSysNo = dirname.substring(6);
-
+            var csys = Number(sessionStorage['curr_sys']);
+            var edges = g.getEdges(csys);
             if (stage != 0 ){
-                if(token=="System" && arrContains(allSys,nmapSysNo)){
-                    if(arrContains(allSys,nmapSysNo)) {
+                if(token=="System" && arrContains(edges,nmapSysNo)){
+                    if(arrContains(edges,nmapSysNo)) {
                         next=1;
+                        sessionStorage['next']=next;
                         var conf = (arrContains(honeySys,nmapSysNo)) ? fakeConf : realConf;
-
                         // var port1type = (arrContains(hpPorts,conf[nmapSysNo]["ports"][0])) ? 'easy to attack' : 'difficult to attack';
                         // var port2type = (arrContains(hpPorts,conf[nmapSysNo]["ports"][1])) ? 'easy to attack' : 'difficult to attack';
                         // var port3type = (arrContains(hpPorts,conf[nmapSysNo]["ports"][2])) ? 'easy to attack' : 'difficult to attack';
                         // var port4type = (arrContains(hpPorts,conf[nmapSysNo]["ports"][3])) ? 'easy to attack' : 'difficult to attack';
-
-                        sessionStorage['next']=next;
 
                         var port1type = '';
                         var port2type = '';
@@ -115,8 +108,6 @@ $(document).ready(function () {
                         // str = '<br>Starting Nmap 6.47 ( http://nmap.org ) <br>Nmap scan report for '+ dirname +' <br>Host is up (0.000011s latency).<br>Not shown: 996 closed ports<br><br><table cellpadding="2" style="background-color: rgb(116,152,158)"><tr><th>PORT</th><th>STATE</th><th>SERVICE</th><th>Vulnerabilities</th><th>EASY/DIFFICULT TO ATTACK</th></tr><tr><td>'
                         str = '<br>Starting Nmap 6.47 ( http://nmap.org ) <br>Nmap scan report for '+ dirname +' <br>Host is up (0.000011s latency).<br>Not shown: 996 closed ports<br><br><table cellpadding="10" style="background-color: rgb(116,152,158)"><tr><th>PORT</th><th>STATE</th><th>SERVICE</th><th>VULNERABILITIES</th></tr><tbody><tr><td style="text-align:center;">'
 
-
-                        // str = '<br>Starting Nmap 6.47 ( http://nmap.org ) <br>Nmap scan report for '+ dirname +' <br>Host is up (0.000011s latency).<br>Not shown: 996 closed ports<br><br><table cellpadding="2" style="background-color: rgb(116,152,158)"><tr><th>PORT</th><th>STATE</th><th>SERVICE</th><th>Vulnerabilities</th><th>EASY/DIFFICULT TO ATTACK</th></tr><tr><td>'
                         +conf[nmapSysNo]["ports"][0]
                         +'</td><td style="text-align:center;">open</td><td style="text-align:center;">'
                         +serviceForPort[conf[nmapSysNo]["ports"][0]]
@@ -124,19 +115,19 @@ $(document).ready(function () {
                         +'</td><td>'+ port1type
                         +'</td></tr><tr><td style="text-align:center;">'
                         +conf[nmapSysNo]["ports"][1]
-                        +'</td><td style="text-align:center;">open</td><td style="text-align:center;">'
+                        +'</td><td style="text-align:center;"> open </td><td style="text-align:center;">'
                         +serviceForPort[conf[nmapSysNo]["ports"][1]]
                         +'</td><td style="text-align:center;">'+ conf[nmapSysNo]["exploit"][1]
                         +'</td><td>'+ port2type
                         +'</td></tr><tr><td style="text-align:center;">'
                         +conf[nmapSysNo]["ports"][2]
-                        +'</td><td style="text-align:center;">open</td><td style="text-align:center;">'
+                        +'</td><td style="text-align:center;"> open </td><td style="text-align:center;">'
                         +serviceForPort[conf[nmapSysNo]["ports"][2]]
                         +'</td><td style="text-align:center;">'+ conf[nmapSysNo]["exploit"][2]
                         +'</td><td>'+ port3type
                         +'</td></tr><tr><td style="text-align:center;">'
                         +conf[nmapSysNo]["ports"][3]
-                        +'</td><td style="text-align:center;">open</td><td style="text-align:center;">'
+                        +'</td><td style="text-align:center;"> open </td><td style="text-align:center;">'
                         +serviceForPort[conf[nmapSysNo]["ports"][3]]
                         +'</td><td style="text-align:center;">'+ conf[nmapSysNo]["exploit"][3]
                         +'</td><td>'+ port4type
@@ -149,92 +140,97 @@ $(document).ready(function () {
                 } else
                     str = "target not specified correctly";
             } else
-                str = "can't follow this step";
+                str = "Can't follow this step. Start the game using <b>start</b> command.";
         }
         return str;
     },
 
-    'get_exploited_nodes' : function (tokens)
+
+    'use_exploit': function (tokens)
     {
-        var sys_list = checkSys.slice().map(Number);
-        var cnt = 0;
-        var str = "<br>Systems you have hacked till now are : "
-        for(var k in sys_list){
-            if(sys_list[k]==-1)
-            {
-                cnt++;
-                str = str+" System"+allSys[k]+",";
-            }
-        }
-        if(cnt==0) str = "No systems exploited yet.<br>"
-        return str;
-    },
-
-    'use_exploit': function (tokens) {
         var x = Math.random();
-        var abc = tokens[2].substring(6);
-        if((x <= 0.9 && arrContains(honeySys,abc)) || (x > 0.9 && !arrContains(honeySys,abc)))
+      var abc = tokens[2].substring(6);
+      if((x <0.9  && arrContains(honeySys,abc)) || (x >= 0.9 && !arrContains(honeySys,abc)))
+      {
+
+        var exploit_name = tokens[1];
+        var target = tokens[2];
+        stage=sessionStorage['stag'];
+        next =sessionStorage['next'];
+        var str = "";
+        if (stage>0 && next==1 )
         {
-            var exploit_name = tokens[1];
-            var target = tokens[2];
-            stage=sessionStorage['stag'];
-            next =sessionStorage['next'];
-            var str = "";
-            if (stage>0 && next==1 ){
-                if (tokens.length != 3 || exploit_name == '') {
+          if (tokens.length != 3 || exploit_name == '')
+          {
+            str = 'Unavailable format.<br>Example: use exploit_name System1/System2/../SystemN';
+          }
+          else if (arrContains(exploitForPort,exploit_name))
+          {
+            var token = target.substring(0,6);
+            var nmapSysNo = target.substring(6);
+            var csys = Number(sessionStorage['curr_sys']);
+            var edges = g.getEdges(csys);
+            var mark_flag = checkElem(nmapSysNo);
 
-                    str = 'Unavailable format.<br>Example: use exploit_name System1/System2/../SystemN';
+            if(arrContains(edges,nmapSysNo) && mark_flag)
+            {
+              sessionStorage['sys_attacked']=nmapSysNo;
+              var sys_attacked=nmapSysNo;
+              var conf = (arrContains(honeySys,nmapSysNo)) ? fakeConf : realConf;
+              if(arrContains(conf[sys_attacked]["exploit"],exploit_name))
+              {
+                stage++;
+                markElem(nmapSysNo);
+                if(mark_flag)
+                {
+                  nSysRemain--;
                 }
-                else if (arrContains(exploitForPort,exploit_name)) {
-                    var token = target.substring(0,6);
-                    var nmapSysNo = target.substring(6);
-                    var mark_flag = checkElem(nmapSysNo);
-
-                    if(arrContains(allSys,nmapSysNo) && mark_flag){
-                        sessionStorage['sys_attacked']=nmapSysNo;
-                        var sys_attacked=nmapSysNo;
-                        var conf = (arrContains(honeySys,nmapSysNo)) ? fakeConf : realConf;
-                        if(arrContains(conf[sys_attacked]["exploit"],exploit_name))
-                        {
-                            stage++;
-                            markElem(nmapSysNo);
-                            if(mark_flag) nSysRemain--;
-                            sessionStorage['stag'] = stage;
-                            $.ajax({
-                                type: 'POST',
-                                url: 'input_exploit',
-                                data: "temp1=" + exploit_name + "&temp2=" + target + "&r=" + honeySys,
-                                success: function(data){
-                                    console.log('exploit data logged-1'+data);
-                                }
-                            });
-                            //str = 'Success: x = ' + x + '. Honeypots: ' + honeySys + '. RealSys: '+ userSys;
-                            str = 'You have gained entry into the system. Now use ls to see the files in the system<br><br>';
-                        } else  {
-                            str = 'use the vulnerability according to the system';
-                        }
-                    } else if(arrContains(allSys,nmapSysNo) && !mark_flag) {
-                        str = "target already exploited";
-                    } else {
-                        str = "target not specified correctly";
-                    }
-                } else {
-                    str = 'Specify the exploit correctly';
-                    }
-            } else {
-                str = "can't follow this step";
-                }
-
-            return str;
+                sessionStorage['stag']=stage;
+                $.ajax({
+                          type: 'POST',
+                          url: 'input_exploit',
+                          data: "temp1=" + exploit_name + "&temp2=" + target + "&r=" + honeySys,
+                          success: function(data)
+                          {
+                            console.log('exploit data logged-1'+data);
+                          }
+                });
+                //Uncomment the line below to check the values of x and honeypots;
+                //str = 'Success: x = ' + x + '. Honeypots: ' + honeySys + '. RealSys: '+ userSys;
+                str = 'You have gained entry into the system. Now use <b>ls</b> to see the files in the system<br><br>';
+              }
+              else
+              {
+                str = 'use the vulnerability according to the system';
+              }
+            }
+            else if(arrContains(edges,nmapSysNo) && !mark_flag)
+            {
+              str = "target already exploited";
+            }
+            else
+            {
+              str = "target not specified correctly";
+            }
+          }
+          else
+          {
+            str = 'Specify the exploit correctly';
+          }
         }
-
         else
         {
-            var str = "";
-            //str = 'Failed: x = ' + x + '. Honeypots: ' + honeySys + '. RealSys: ' + userSys;
-            str = 'The use_exploit command failed while exploiting the vulnerability. You may try exploiting vulnerabilities again.';
-            return str;
+           str = "Can't follow this step. Start the game using <b>start</b> command.";
         }
+        return str;
+      }
+      else
+      {
+        var str = "";
+        //str = 'Failed: x = ' + x + '. Honeypots: ' + honeySys + '. RealSys: ' + userSys;
+        str = 'The use_exploit command failed while exploiting the vulnerability. You may try exploiting vulnerabilities again.';
+        return str;
+      }
     },
 
     'ls': function (tokens) {
@@ -242,27 +238,27 @@ $(document).ready(function () {
         stage = sessionStorage['stag'];
         if (stage>=2 ){
             stage++;
-            sessionStorage['stag']=stage;
+            sessionStorage['stag'] = stage;
             var fNames = "";
             for(var i in allFiles)
             {
                 fNames = fNames +  "<br>" + allFiles[i] ;
             }
-            fNames = fNames + "<br><br>Now use \'scp\' to transfer files<br>Example: scp \'file_name\' 'your_ip' <br><br>";
+            fNames = fNames + "<br><br>Now use \'scp\' to transfer files<br>Example: scp \'file_name\' 172.22.31.31 <br><br>";
             str = fNames;
         }
         else
-            str = "can't follow this step";
+            str = "Can't follow this step. Start the game using <b>start</b> command.";
 
         return str;
         },
 
-     'scp': function (tokens) {
+    'scp': function (tokens) {
         var l = tokens.length;
         var str = "";
         stage = sessionStorage['stag'];
         if (l != 3)
-            str = 'Unavailable format.<br>Example: scp file_name your_ip_address<br><br>';
+            str = 'Command syntax incorrect.<br>Example: scp file_name 172.22.31.31<br><br>';
         else {
             if (stage >= 3 ){
                 var target=sessionStorage['sys_attacked'];
@@ -284,9 +280,9 @@ $(document).ready(function () {
                             url: "hacker_point",
                             data: "file=" + file + "&target=" + target + "&r=" + honeySys + "&fake=" + fakeFiles + "&action=addstage",
                             success: function (data) {
-                            console.log('exploit logged '+data);
-                            console.log('code running copy mid');
-                            str=data;
+                                console.log('exploit logged '+data);
+                                console.log('code running copy mid');
+                                str=data;
                             }
                         });
                         console.log('code running copy finish');
@@ -302,22 +298,55 @@ $(document).ready(function () {
                     str = 'Please specify the ip address of your machine<br><br>';
                 }
             } else {
-                str = "can't follow this step";
+                str = "Can't follow this step. Start the game using <b>start</b> command.";
             }
         }
 
         return str;
     },
-    'exit': function (tokens) {
-        $.ajax({
-            type: 'POST',
-            url: 'input_command',
-            data: "input=" + tokens.join(' ') + "&output=" + "User exited the game",
-            success: function(data){
-                console.log('logged exit');
-                window.location.href = "score";
+    'get_exploited_nodes' : function (tokens)
+    {
+        var sys_list = checkSys.slice().map(Number);
+        var cnt = 0;
+        str = "<br>Systems you have hacked till now are : "
+        for(var k in sys_list){
+            if(sys_list[k]==-1)
+            {
+                cnt++;
+                str = str+" System"+allSys[k]+",";
             }
-        });
+        }
+        if(cnt==0) str = "No systems exploited yet.<br>"
+        return str;
+    },
+    'logout': function (tokens) {
+        var target = Number(sessionStorage['curr_sys']);
+        var str = "";
+        sessionStorage['stag']=1;
+        sessionStorage['next']=0;
+        next = 0;
+        var par = g.parentNode.get(target);
+        if (par!=null)
+        {
+            sessionStorage['curr_sys'] = par;
+            str = "You are now on System"+sessionStorage['curr_sys'] + '<br>Systems you can hack are : ' + g.printSystems(par);
+        } else
+            str = "You are on the root system" + '<br>Systems you can hack are : ' + g.printSystems(0);
+
+        return str;
+    },
+    'exit': function (tokens) {
+        str = "You can not exit the game untill remaining time finishes. Please keep hacking.";
+        return str;
+        // $.ajax({
+        //     type: 'POST',
+        //     url: 'input_command',
+        //     data: "input=" + tokens.join(' ') + "&output=" + "User exited the game",
+        //     success: function(data){
+        //         console.log('logged exit');
+        //         window.location.href = "score";
+        //     }
+        // });
     }
 };
 

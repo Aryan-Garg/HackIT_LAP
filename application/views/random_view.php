@@ -5,7 +5,7 @@
   <title>Hack it!</title>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url().'css/new.css'?>">
 </head>
-<body background="<?php echo base_url().'images/background.gif'?>" >
+<body>
 <div>
 <br>
 </div>

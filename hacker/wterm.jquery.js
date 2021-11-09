@@ -112,8 +112,8 @@
     var dispatch = {};
 
 
-    var demo_game_seconds = 300;
-    var real_game_seconds = 1200;
+    var demo_game_seconds = 150;
+    var real_game_seconds = 600;
 
     var gameNumber;
 
@@ -144,16 +144,6 @@
         }
     }
 
-    // var seconds = 1200;
-
-    // function time() {
-    //     document.getElementById('countdown').innerHTML = seconds;
-    //     seconds--;
-    //     if (seconds == 0) {
-    //         window.location = "score";
-    //     }
-    // }
-
     function showScore() {
         $.ajax({
             type: "post",
@@ -166,6 +156,7 @@
     }
 
     function sendCommand(command,data) {
+        console.log('sendCommand reached ' + command + ' : ' + data);
         $.ajax({
             type: 'POST',
             url: 'input_command',

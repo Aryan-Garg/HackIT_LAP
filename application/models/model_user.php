@@ -70,6 +70,7 @@ class Model_user extends CI_Model {
 			return 0;
 		}
 	}
+
 	public function add_score($gameplay_id,$score){
 		if($this->session->userdata('game_number')<1) 
 			return 0;

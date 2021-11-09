@@ -59,9 +59,9 @@ $(document).ready(function() {
 	</div>
 			<div align="justify">
 				<p>
-					<label for="username">Your College Email ID</label>
+					<label for="username">Your Amazon MTurk ID</label>
 					<br>
-					<input id="username" name="username" required="required" type="text" placeholder="College Email ID"><span id="user-result"></span>
+					<input id="username" name="username" required="required" type="text" placeholder="Amazon MTurk ID"><span id="user-result"></span>
 				</p>
 				<!-- <p>
 					<label for="email"   > Your email</label>

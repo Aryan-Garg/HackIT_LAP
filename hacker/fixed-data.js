@@ -145,8 +145,8 @@ sysData.push(round0);
 var round1 = {
 	"real_files" : ["cras_in_purus.txt","nullam_varius.txt","nonummy.txt","quam_nec.txt","ultrices_erat_tortor.txt","tellus.txt","hac.txt","orci_mauris.txt","amet.txt","at_velit_vivamus.txt","viverra_diam_vitae.txt","est.txt","pellentesque.txt","pin.txt","eleifend_luctus.txt","dictumst_etiam_faucibus.txt","ut_nulla_sed.txt","ipsum_dolor_sit.txt","nullam.txt","purus.txt","sit_amet_sapien.txt","tincidunt.txt","rutrum_ac.txt","nunc_nisl_duis.txt","non_velit_donec.txt","congue_eget.txt","ultrices.txt","feugiat_non.txt","cubilia_curae.txt","fusce_congue_diam.txt","nisl.txt","feugiat_et_eros.txt","ligula_suspendisse_ornare.txt","turpis_a.txt","justo_in.txt","orci_nullam.txt","proin.txt","nunc_viverra_dapibus.txt","nulla_quisque_arcu.txt","eu_est_congue.txt","morbi.txt","donec.txt","purus_eu.txt","bibendum.txt","sapien_urna_pretium.txt","consequat.txt","mauris_eget_massa.txt","suspendisse.txt","aliquet_at_feugiat.txt","orci_pede_venenatis.txt"],
 	"fake_files" : [],
-	"honeypots":[2,3,4,6,7,8,10,11,12,13,14,15,17,19,21,22,23,24,25,26,27,30,31,32,34,35,36,37,39,40],
-	"real":[1,5,9,16,18,20,28,29,33,38],
+	"honeypots":[1,2,3,4,5,6,7,8,9,10,12,13,14,15,17,19,21,22,23,25,26,27,30,31,32,34,35,37,39,40],
+	"real":[11,16,18,20,24,28,29,33,36,38],
 	"all":[10,36,38,40,31,1,20,37,26,7,22,23,28,16,12,14,29,18,11,35,15,5,21,30,13,9,2,6,32,27,19,3,17,4,34,24,39,33,25,8]
 }
 sysData.push(round1);

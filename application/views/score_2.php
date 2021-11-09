@@ -5,8 +5,8 @@
 	<title>Hack it!</title>
   <link rel="stylesheet" type="text/css" href="<?php echo base_url().'css/new.css'?>">
 </head>
-<body>
-  <br><!--<a class=" btn " href='<?php echo base_url()."main/logout"?>'>Logout</a>-->
+<body >
+  <br><!-- <a class=" btn " href='<?php echo base_url()."main/logout"?>'>Logout</a> -->
 	<div>
 		<p id="varun"> </p>
 		<br/>

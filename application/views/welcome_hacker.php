@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Hack it!</title>
+	<meta charset="utf-8">
+	<title>Hack it!</title>
 <link rel="stylesheet" type="text/css" href="<?php echo base_url().'css/new.css'?>">
 </head>
 <body>
@@ -11,8 +11,8 @@
 </div>
 
 <div class="centered" style="position:relative; ">
-  <a class="btn right" href='<?php echo base_url()."main/logout"?>'>Logout</a>
-  <h1><p> <?php echo 'Welcome! '?></p></h1>
+	<a class="btn right" href='<?php echo base_url()."main/logout"?>'>Logout</a>
+	<h1><p> <?php echo 'Welcome! '?></p></h1>
 
 
 
@@ -80,14 +80,14 @@ The flow of the task is also summarized in the following figure 1. You may use t
 <br>
 <figure>
    <center>
-  <img src="http://shashank.acslab.org/hackit/nonrdsh/images/steps.png" width="1000" height="200">
+  <img src="http://shashank.acslab.org/hackit/rdse/images/steps.png" width="1000" height="200">
   <figcaption>Figure 1: Steps involved in the task.</figcaption>
   <center>
 </center></center></figure>
 
 <p> The task ends once the time remaining becomes 0 seconds. You will be paid INR 50 for your participation once you complete this study. In addition top-10 scorers based upon total score obtained will enter a lucky draw, where one lucky draw winner will be awarded Amazon gift cards worth INR 500.<br/><br/>Best of Luck!</p>
 
-  <a class="cen btn" href="<?php echo base_url().'main/testing' ;?>">Enter  into Game</a>
+	<a class="cen btn" href="<?php echo base_url().'main/testing' ;?>">Enter  into Game</a>
 </div>
 <br/>
 <br/>

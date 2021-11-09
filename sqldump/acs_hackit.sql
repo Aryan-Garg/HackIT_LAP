@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Nov 14, 2019 at 02:08 PM
--- Server version: 10.4.6-MariaDB
--- PHP Version: 7.3.9
+-- Host: localhost
+-- Generation Time: Nov 09, 2021 at 03:08 PM
+-- Server version: 10.4.21-MariaDB
+-- PHP Version: 7.4.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -434,7 +433,11 @@ INSERT INTO `command_used` (`id`, `userID`, `username`, `input_command`, `output
 (749, 2, 'vaibhav', 'logout', 'You are now on System0<br>Systems you can hack are : <br/>System1, System2, System3, System4, System5, System6, System7, System8, System9, System10, ', 1, 'RDS Topology', '2019-11-04 16:10:45'),
 (750, 2, 'vaibhav', 'get_exploited_nodes', '<br>Systems you have hacked till now are :  System1,', 1, 'RDS Topology', '2019-11-04 16:11:06'),
 (751, 2, 'vaibhav', 'help', '<table cellpadding=\"5\"  WIDTH=\"60%\">      <tr><td>start</td><td>Start the Game</td></tr>      <tr><td>nmap</td><td>Scans the webserver to find the running services</td><td>nmap [system-name]</td><td>nmap System1</td></tr>      <tr><td>nmap -sL all</td><td>Prints all the adjacent servers.</td></tr>      <tr><td>get_exploited_nodes</td><td>Prints all the nodes you have exploited</td></tr>      <tr><td>logout</td><td>Logs out from current node and switches to previous node</td></tr>      <tr><td>use_exploit</td><td>Exploits the vulnerability to access the System</td><td>use_exploit [vulnerability-name] [system-name]</td><td>use_exploit brute_force System1</td></tr>      <tr><td>exit</td><td>Exit the Game</td></tr></table><br><br>', 1, 'RDS Topology', '2019-11-04 16:11:21'),
-(752, 2, 'vaibhav', 'nmap -sL all', 'Systems adjacent to the current system are : <br/>System1, System2, System3, System4, System5, System6, System7, System8, System9, System10, <br><br>', 1, 'RDS Topology', '2019-11-04 16:11:31');
+(752, 2, 'vaibhav', 'nmap -sL all', 'Systems adjacent to the current system are : <br/>System1, System2, System3, System4, System5, System6, System7, System8, System9, System10, <br><br>', 1, 'RDS Topology', '2019-11-04 16:11:31'),
+(753, 23, 'gclagil', 'help', '<table cellpadding=\"5\"  WIDTH=\"60%\">          <tr><td>start</td><td>Start the Game</td></tr>          <tr><td>nmap</td><td>Scans the webserver to find the running services</td><td>nmap [system-name]</td><td>nmap System1</td></tr>          <tr><td>nmap -sL all</td><td>Prints all the adjacent servers.</td></tr>          <tr><td>get_exploited_nodes</td><td>Prints all the nodes you have exploited</td></tr>          <tr><td>logout</td><td>Logs out from current node and switches to previous node</td></tr>          <tr><td>use_exploit</td><td>Exploits the vulnerability to access the System</td><td>use_exploit [vulnerability-name] [system-name]</td><td>use_exploit brute_force System1</td></tr>          </table><br><br>', 0, 'RDS Topology', '2021-11-09 14:06:38'),
+(754, 23, 'gclagil', 'start', '<h2><br>----------------------Demo Mode------------------</h2><br>Welcome to the Demo Mode in HackIt. In the demo mode, you can practice running different commands. You will <b>NOT</b> be scored in the Demo Mode. The Real Mode of the game will only start after the Demo Mode ends. The Demo Mode is 2.5 minutes long which will exit automatically and Real Mode will begin. You can practise the flow of game in the demo mode. <br><br>Probe Phase<br>-----------<br>Welcome to the Probe Phase. Probe means that you try to collect information on whether a system has services that could be easily exploited. To probe a system, you need to run the nmap command on each system once.<br>Nmap is a network utility is designed to check for open ports, Operating Systems running, and the different services running on a network connected system. In this game, the nmap utility will also provide the list of vulnerabilities available on the corresponding system and whether the vulnerability is easy to exploit or difficult to exploit.<br><br>The format of nmap is: nmap [system-name].<br>Example: nmap System1</div>', 0, 'RDS Topology', '2021-11-09 14:06:43'),
+(755, 23, 'gclagil', 'nmap System1', '<br>Starting Nmap 6.47 ( http://nmap.org ) <br>Nmap scan report for System1 <br>Host is up (0.000011s latency).<br>Not shown: 996 closed ports<br><br><table cellpadding=\"10\" ><tr><th>PORT</th><th>STATE</th><th>SERVICE</th><th>VULNERABILITIES</th></tr><tbody><tr><td >4 3/tcp</td><td >open</td><td >https</td><td >drown attack</td><td></td></tr><tr><td >4 5/tcp</td><td > open </td><td >microsoft-ds</td><td >windows null_session</td><td></td></tr><tr><td >6 12/tcp</td><td > open </td><td >dtspc</td><td >remote exploit_buffer_overflow</td><td></td></tr><tr><td >2 /tcp</td><td > open </td><td >ssh</td><td >user_auth</td><td></td></tr></tbody><tfoot><tr><td>Device type: general purpose</td></tr><tr><td>Running: Windows 8</td></tr><tr><td>OS details: Windows 8</td></tr></tfoot></table><tr>Nmap done: 1 IP address (1 host up) scanned in 0.32 seconds<br>Now you can probe another system... or you can exploit the above listed vulnerabilities.<br>Use following command: use_exploit Vul-name System-name<br>', 0, 'RDS Topology', '2021-11-09 14:07:16'),
+(756, 23, 'gclagil', 'logout', 'You are on the root system<br>Systems you can hack are : <br/>System1, System2, System3, System4, System5, System6, System7, System8, System9, System10, ', 0, 'RDS Topology', '2021-11-09 14:07:28');
 
 -- --------------------------------------------------------
 
@@ -576,7 +579,30 @@ INSERT INTO `gameplay` (`id`, `gameplay_id`, `user_id`, `score`) VALUES
 (162, 1, 2, 0),
 (163, 1, 2, 0),
 (164, 1, 2, 100),
-(165, 1, 2, 0);
+(165, 1, 2, 0),
+(166, 1, 23, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `instruction_questions`
+--
+
+CREATE TABLE `instruction_questions` (
+  `user_id` int(11) NOT NULL,
+  `q1` int(11) NOT NULL,
+  `q2` int(11) NOT NULL,
+  `q3` int(11) NOT NULL,
+  `q4` int(11) NOT NULL,
+  `q5` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `instruction_questions`
+--
+
+INSERT INTO `instruction_questions` (`user_id`, `q1`, `q2`, `q3`, `q4`, `q5`) VALUES
+(23, 1, 1, 1, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -606,7 +632,8 @@ INSERT INTO `registration` (`id`, `email`, `username`, `password`, `level`, `bra
 (19, 'nata@lia.com', 'natalia', 'qwertyuiop', 'Bachelors', 'CSE', 'NO', 'Argentina', 69, 'female'),
 (20, 'he@gmail.com', 'help', 'help', 'Bachelors', 'CSE', 'YES', 'India', 21, 'male'),
 (21, 'aggarwalpalvi12@gmail.com', 'Palvi', '123', 'Doctoral', 'Civil', 'NO', 'Algeria', 25, 'female'),
-(22, 'aggarwalpalvi@gmail.com', 'abc', '123', 'Doctoral', 'CSE', 'YES', 'Algeria', 18, 'male');
+(22, 'aggarwalpalvi@gmail.com', 'abc', '123', 'Doctoral', 'CSE', 'YES', 'Algeria', 18, 'male'),
+(23, '0', 'gclagil', '!@#$%^&*()', 'Bachelors', 'CSE', 'YES', 'India', 20, 'male');
 
 --
 -- Indexes for dumped tables
@@ -644,7 +671,7 @@ ALTER TABLE `registration`
 -- AUTO_INCREMENT for table `command_used`
 --
 ALTER TABLE `command_used`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=753;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=757;
 
 --
 -- AUTO_INCREMENT for table `exploit_used`
@@ -656,13 +683,13 @@ ALTER TABLE `exploit_used`
 -- AUTO_INCREMENT for table `gameplay`
 --
 ALTER TABLE `gameplay`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=166;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=167;
 
 --
 -- AUTO_INCREMENT for table `registration`
 --
 ALTER TABLE `registration`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

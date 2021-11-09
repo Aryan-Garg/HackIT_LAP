@@ -9,7 +9,7 @@
                 </hgroup>
 
                 <p>
-                        This game is part of a research study conducted at Indian Institute of Technology Mandi. 
+                        This game is part of a research study conducted at Indian Institute of Technology Mandi.
                 </p>
                 <p>
                         The purpose of the research is to study the decision-making process in the cyber-security domain.
@@ -56,18 +56,18 @@
                 Dr. Varun Dutt <br>
                 Applied Cognitive Science Laboratory<br>
                 Indian Institute of Technology Mandi<br>
-                Himachal Pradesh, India &hyphen; 175001<br>
-                Phone: +91-1905-267041<br>
+                Himachal Pradesh, India &hyphen; 175075<br>
+                Phone: +91-1905-267150<br>
                 Email: varun@iitmandi.ac.in
 				 </blockquote>
                 <p>&nbsp;</p>
-                
+
                 If you have questions later, desire additional information, or wish to withdraw your participation please contact the Principal Investigator by mail, phone or e-mail in accordance with the contact information listed above.
                 <br><br>
-             
-            
+
+
 </p>
-                
+
                 <!-- <form action="?consent=agree" method="POST"> -->
                 <?php
                         echo form_open('main/consent_validation');?>
@@ -167,9 +167,9 @@
                                 <?php echo form_submit('consent_submit','Submit');?>
                         </div>
                 <!-- </form> -->
-                
+
 <?php
-	
+
 	echo form_close();
 ?>
         </article>
