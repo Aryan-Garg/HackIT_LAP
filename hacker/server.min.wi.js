@@ -359,7 +359,7 @@ $(document).ready(function () {
         //window.open("http://localhost/sample_rdsh/login.php"); 
         //window.open("http://localhost/sample_rdsh/login.php", "myWindow", 'width=400,height=400');
         if(tokens[1]=="-c"){
-        document.getElementById("wterm-parent").style.width="97%";
+        document.getElementById("wterm-parent").style.width="95%";
         document.getElementById("float-right").style.visibility="hidden";
         document.getElementById("float-right").style.width="0%";
         str="Chat window has been closed";
